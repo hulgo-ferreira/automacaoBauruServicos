@@ -16,11 +16,21 @@ jobs:
       - name: Checkout do código
         uses: actions/checkout@v4 # clona o repositório na VM do Github Actions
 
-      - name: Instalar dependências e rodar Cypress
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'yarn' # usa cache automático do Yarn
+
+      - name: Instalar dependências
+        run: yarn install
+
+      - name: Rodar Cypress
         uses: cypress-io/github-action@v5
         with:
-          build: yarn install
           start: yarn start
+          wait-on: 'http://localhost:3000' # ajuste para a sua porta
+          wait-on-timeout: 60
         
       - name: Upload screenshots on failure
         if: failure()
