@@ -1,0 +1,14 @@
+{
+  "sucesso": {
+    "email": "teste@gmail.com",
+    "senha": "testehulgo1437@"
+  },
+  "emailInvalido": {
+    "email": "www.teste.com",
+    "senha": "testehulgo1437@"
+  },
+  "senhaInvalida": {
+    "email": "teste@gmail.com",
+    "senha": "teste123"
+  }
+}

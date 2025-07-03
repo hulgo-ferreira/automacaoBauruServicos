@@ -1,0 +1,30 @@
+{
+  "sucesso": {
+    "nome_profissional": "HGTeste01",
+    "profissao": "Desenvolvedor de Software",
+    "data_nascimento": "1992-03-30",
+    "tempo_profissao": "5",
+    "descricao": "Teste",
+    "telefone": "(89)37717-4571",
+    "email": "teste@gmail.com",
+    "endereco": "Rua Salvador Pelegrino, 01",
+    "presta_servicos_no_endereco": "Não",
+    "senha": "testehulgo1437@",
+    "confirmar_senha": "testehulgo1437@",
+    "aceite_termos": true
+  },
+  "cadastro_duplicado": {
+    "nome_profissional": "HGTeste01",
+    "profissao": "Desenvolvedor de Software",
+    "data_nascimento": "1992-03-30",
+    "tempo_profissao": "5",
+    "descricao": "Teste",
+    "telefone": "(89)37717-4571",
+    "email": "teste@gmail.com",
+    "endereco": "Rua Salvador Pelegrino, 01",
+    "presta_servicos_no_endereco": "Não",
+    "senha": "testehulgo1437@",
+    "confirmar_senha": "testehulgo1437@",
+    "aceite_termos": true
+  }
+}
