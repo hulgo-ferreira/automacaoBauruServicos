@@ -18,8 +18,11 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Garantir git origin para evitar erro 128
+      - name: Garantir git origin
         run: git remote set-url origin https://github.com/${{ github.repository }}.git
+
+      - name: Listar arquivos para debug
+        run: ls -la
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -29,18 +32,14 @@ jobs:
 
       - name: Instalar dependências
         run: yarn install
-
-      - name: Testar yarn start isolado
-        run: yarn start &
+        working-directory: ./web
 
       - name: Rodar Cypress
-        uses: cypress-io/github-action@v5
-        with:
-          start: yarn start
-          wait-on: 'http://localhost:3000' # ajuste para a sua porta
-          wait-on-timeout: 60
-        env:
-          DEBUG: cypress:*
+        run: |
+          cd web
+          yarn start &
+          npx wait-on http://localhost:3000
+          npx cypress run
         
       - name: Upload screenshots on failure
         if: failure()
