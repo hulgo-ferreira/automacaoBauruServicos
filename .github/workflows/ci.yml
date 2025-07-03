@@ -30,12 +30,17 @@ jobs:
       - name: Instalar dependências
         run: yarn install
 
+      - name: Testar yarn start isolado
+        run: yarn start &
+
       - name: Rodar Cypress
         uses: cypress-io/github-action@v5
         with:
           start: yarn start
           wait-on: 'http://localhost:3000' # ajuste para a sua porta
           wait-on-timeout: 60
+        env:
+          DEBUG: cypress:*
         
       - name: Upload screenshots on failure
         if: failure()
