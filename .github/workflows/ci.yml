@@ -32,7 +32,7 @@ jobs:
 
       - name: Instalar dependências
         run: yarn install
-        working-directory: ./automacaoBauruServicos/web
+        working-directory: ./web
 
       - name: Cache Cypress binary
         uses: actions/cache@v4
@@ -42,11 +42,11 @@ jobs:
 
       - name: Build app
         run: yarn build
-        working-directory: ./automacaoBauruServicos/web
+        working-directory: ./web
 
       - name: Start app
         run: npx serve -s build &
-        working-directory: ./automacaoBauruServicos/web
+        working-directory: ./web
 
       - name: Esperar app rodar
         run: npx wait-on http://localhost:3000
