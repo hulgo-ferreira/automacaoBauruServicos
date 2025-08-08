@@ -1,0 +1,92 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+    # defaults:
+    #   run:
+    #     working-directory: web
+
+    services:
+        docker:
+            image: docker:20.10.21-dind
+            options: --privileged
+
+    steps:
+        - name: Checkout repo da automação
+          uses: actions/checkout@v4
+
+        - name: Checkout repo da aplicação
+          uses: actions/checkout@v4
+          with:
+            repository: lucasbdaj/bauruservicos
+            token: ${{ secrets.GH_PAT }} # token de acesso se o repo for privado
+            path: app
+
+        - name: Configurar Docker Compose
+          run: |
+            cd app/docker
+            docker compose up -d
+            echo "Aguardano MySQL iniciar..."
+            sleep 20
+
+        - name: Instalar dependências da automação
+          run: |
+            cd web
+            npm install
+    
+        - name: Rodar Cypress
+          run: |
+            cd web
+            npx cypress run
+
+    #   - name: Setup Node.js
+    #     uses: actions/setup-node@v4
+    #     with:
+    #       node-version: '18'
+      
+    #   - name: Run Cypress tests
+    #     uses: cypress-io/github-action@v5
+    #     with:
+    #       start: yarn start
+    #       wait-on: 'http://localhost/bauruservicos'
+
+    #   - name: Enable Corepack and set Yarn version
+    #     run: |
+    #       corepack enable
+    #       corepack prepare yarn@4.3.1 --activate
+
+    #   - name: Instalar dependências
+    #     run: yarn install
+
+    #   - name: Start server
+    #     run: yarn start &
+
+    #   - name: wait for server to be ready
+    #     run: npx wait-on http://localhost/bauruservicos
+
+    #   - name: Cypress run
+    #     uses: cypress-io/github-action@v5
+    #     with:
+    #       working-directory: web
+
+    #   - uses: actions/upload-artifact@v4
+    #     if: failure()
+    #     with:
+    #       name: cypress-screenshots
+    #       path: web/cypress/screenshots
+    #       if-no-files-found: ignore
+
+    #   - uses: actions/upload-artifact@v4
+    #     with:
+    #       name: cypress-videos
+    #       path: web/cypress/videos
+    #       if-no-files-found: ignore
