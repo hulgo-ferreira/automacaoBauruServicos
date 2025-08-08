@@ -52,6 +52,11 @@ jobs:
           run: |
             cd web
             chmod +x node_modules/.bin/cypress
+
+        - name: Instalar binário Cypress
+          run: |
+            cd web
+            npx cypress install
     
         - name: Rodar Cypress
           run: |
