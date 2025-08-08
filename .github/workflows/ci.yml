@@ -46,7 +46,7 @@ jobs:
         - name: Rodar Cypress
           run: |
             cd web
-            npx cypress run
+            npx cypress run 
 
     #   - name: Setup Node.js
     #     uses: actions/setup-node@v4
