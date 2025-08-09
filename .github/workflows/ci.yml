@@ -50,7 +50,7 @@ jobs:
 
         - name: Start backend da aplicação
           run: |
-            cd app
+            cd app/docker
             docker compose up -d
             # Espera a aplicação estar pronta
             sleep 30
