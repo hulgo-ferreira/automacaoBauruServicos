@@ -31,22 +31,32 @@ jobs:
             token: ${{ secrets.GH_PAT }} # token de acesso se o repo for privado
             path: app
 
-        - name: Configurar Docker Compose
-          run: |
-            cd app/docker
-            docker compose up -d
-            echo "Aguardano MySQL iniciar..."
-            sleep 20
+        # - name: Configurar Docker Compose
+        #   run: |
+        #     cd app/docker
+        #     docker compose up -d
+        #     echo "Aguardano MySQL iniciar..."
+        #     sleep 20
 
         - name: Setup Node.js
           uses: actions/setup-node@v4
           with:
            node-version: '18'
 
-        - name: Instalar dependências da automação
+        - name: Instalar dependências
           run: |
             cd web
             npm install
+
+        - name: Start backend da aplicação
+          run: |
+            cd app
+            docker compose up -d
+            # Espera a aplicação estar pronta
+            sleep 30
+
+        - name: Esperar aplicação rodando
+          run: npx wait-on http://localhost:8080   
 
         - name: Ajustar permissão do Cypress
           run: |
